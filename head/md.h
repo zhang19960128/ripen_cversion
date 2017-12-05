@@ -17,4 +17,5 @@ void updateforceone(int,int,double,particle*);
 double power(int,particle*);
 void freeze(int,particle*);
 void setv(int,double,particle*);
+void jamming(int,double,double,double,particle*);
 #endif /* md_h */

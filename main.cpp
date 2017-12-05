@@ -20,9 +20,8 @@ extern double f_dec;
 extern double alpha_start;
 extern double f_alpha;
 int main(){
-    int N=100;//specify the number of particles.
+    int N=50;//specify the number of particles.
     double Dt=0.01;
-    double Dt_max=10*Dt;
     double len;
     double tempr;
     double alpha=alpha_start;
@@ -51,31 +50,7 @@ int main(){
             allpart[i].speed[j]=0.0;
         }
     }
-    int i=0;
-		updateforce(N,len,allpart);
-    do{
-        i++;
-        e_before=e_end;
-        leapfrogone(N,Dt,len,allpart);
-        updateforce(N,len,allpart);
-        leapfrogtwo(N,Dt,allpart);
-        pow=power(N,allpart);
-        setv(N,alpha,allpart);
-        if(pow>0){
-            if(count>N_min){
-                Dt=Dt*f_inc<Dt_max ? Dt*f_inc:Dt_max;
-                alpha=alpha*f_alpha;
-            }
-            count=0;
-        }
-        else{
-            count++;
-            Dt=Dt*f_dec;
-            alpha=alpha_start;
-            freeze(N,allpart);
-        }
-        e_end=energy(N,allpart);
-    }while(std::fabs(e_end-e_before)>1e-14);
+   jamming(N,len,Dt,alpha_start,allpart);
     std::fstream myfile;
     myfile.open("good.txt",std::fstream::out);
     for(size_t i=0;i<N;i++){

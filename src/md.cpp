@@ -8,6 +8,11 @@
 #include "particle.h"
 #include <iostream>
 #include <cmath>
+extern int N_min;
+extern double f_inc;
+extern double f_dec;
+extern double alpha_start;
+extern double f_alpha;
 double energy(int size,particle* allpart){
     double ener=0;
     double rij=0;
@@ -117,4 +122,33 @@ void setv(int size,double alpha,particle* allpart){
             allpart[i].speed[k]=(1-alpha)*allpart[i].speed[k]+alpha*allpart[i].force[k]/normf*normv;
         }
     }
+}
+void jamming(int N,double len,double Dt,double alpha,particle* allpart){
+	double e_before,e_end;
+	updateforce(N,len,allpart);
+	int count=0;
+	double Dt_max=10*Dt;
+	double pow;
+	do{
+          e_before=e_end;
+          leapfrogone(N,Dt,len,allpart);
+          updateforce(N,len,allpart);
+          leapfrogtwo(N,Dt,allpart);
+          pow=power(N,allpart);
+          setv(N,alpha,allpart);
+          if(pow>0){
+              if(count>N_min){
+                  Dt=Dt*f_inc<Dt_max ? Dt*f_inc:Dt_max;
+                 alpha=alpha*f_alpha;
+              }
+              count=0;
+          }
+          else{
+              count++;
+             Dt=Dt*f_dec;
+              alpha=alpha_start;
+             freeze(N,allpart);
+ 		}
+         e_end=energy(N,allpart);
+	}while(std::fabs(e_end-e_before)>1e-14);
 }
