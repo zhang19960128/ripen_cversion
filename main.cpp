@@ -20,7 +20,7 @@ extern double f_dec;
 extern double alpha_start;
 extern double f_alpha;
 int main(){
-    int N=1000;//specify the number of particles.
+    int N=100;//specify the number of particles.
     double Dt=0.01;
     double Dt_max=10*Dt;
     double len;
@@ -37,6 +37,7 @@ int main(){
         do{
             tempr=gaussian(1,0.5);
         }while(tempr<0);
+				tempr=0.2;
         allpart[i].radius=tempr;
         volume=volume+3.141592653*4.0/3.0*tempr*tempr*tempr;
     }
@@ -51,6 +52,7 @@ int main(){
         }
     }
     int i=0;
+		updateforce(N,len,allpart);
     do{
         i++;
         e_before=e_end;
