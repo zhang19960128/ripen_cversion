@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../head/md.h
+particle.h
+../head/particle.h
+
+../head/myrandom.h
+math.h
+-
+
+../head/particle.h
+
+/Users/jiahaozhang/Documents/rrsimulation/cver/main.cpp
+iostream
+-
+cmath
+-
+md.h
+/Users/jiahaozhang/Documents/rrsimulation/cver/md.h
+iomanip
+-
+stdlib.h
+-
+particle.h
+/Users/jiahaozhang/Documents/rrsimulation/cver/particle.h
+myrandom.h
+/Users/jiahaozhang/Documents/rrsimulation/cver/myrandom.h
+fstream
+-
+
+/Users/jiahaozhang/Documents/rrsimulation/cver/src/fire.cpp
+
+/Users/jiahaozhang/Documents/rrsimulation/cver/src/md.cpp
+particle.h
+/Users/jiahaozhang/Documents/rrsimulation/cver/src/particle.h
+iostream
+-
+cmath
+-
+
